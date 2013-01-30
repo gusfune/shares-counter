@@ -16,7 +16,8 @@ class ShareCounter{
 	private function getCurrentPageURL() {
 		/* Get the Current Page URL, with port number too */
 		$pageURL = 'http'; // All pages start with HTTP, huh?
-		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {$pageURL .= "s"; // If HTTPS, just append the "s" to the string
+		if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] == "on") {
+			$pageURL .= "s"; // If HTTPS, just append the "s" to the string
 		}
 		$pageURL .= "://" . $_SERVER["SERVER_NAME"]; // Append the server name, or the domain where the script is used
 		if ($_SERVER["SERVER_PORT"] != "80") { // If the port is different from 80...
@@ -40,15 +41,16 @@ class ShareCounter{
 	}
 	public function setURL($url=""){
 		/* Set the URL to use with the Share counter. If empty, detect the actual page URL */
-		if(empty($url)){
-			$this->url = $this->getCurrentPageURL();
+		if(empty($url)){ // Is empty?
+			$this->url = $this->getCurrentPageURL(); // If yes, we just get the current page URL
 		}
 		else{
-			$this->url = $url;
+			$this->url = $url; // If not, we set the new URL 
 		}
 	}
 	public function getURL(){
-		return $this->url;
+		/* Just return the URL used with this counter */
+		return $this->url; 
 	}
 	public function getFacebookSharesCount(){
 		/* Just return the number of shares of the link in  Facebook */
@@ -77,7 +79,12 @@ class ShareCounter{
 	public function getGooglePlusSharesCount(){
 		/* Just return the number of shares of the link in Google Plus */
 		$url_gplus = "https://clients6.google.com/rpc"; // Set the URL of the API
-		$content_gplus = $this->request($url_gplus, "POST", '[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' . $this->url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]', array('Content-type: application/json'));// Just request the API, with a POST request..
+		$content_gplus = $this->request(
+			$url_gplus, // The URL of the API
+			"POST", // The method we need to use
+			'[{"method":"pos.plusones.get","id":"p","params":{"nolog":true,"id":"' . $this->url . '","source":"widget","userId":"@viewer","groupId":"@self"},"jsonrpc":"2.0","key":"p","apiVersion":"v1"}]', // The data to use with the API
+			array('Content-type: application/json') // The type of request we use in the request body
+		);// Just request the API, with a POST request..
 		$data_gplus = json_decode($content_gplus, true); // Decode the file
 		if ( isset($data_gplus) && isset($data_gplus[0]['result']['metadata']['globalCounts']['count']) ) { // If the JSON is valid and if we have the count
 			$result = intval($data_gplus[0]['result']['metadata']['globalCounts']['count']); // We convert it into a INT number
