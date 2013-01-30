@@ -12,19 +12,21 @@ function sharesCounter($facebook = true, $twitter = true, $gplus = true, $linked
 	}
 
 	if ( $facebook ) {
-		$url_fb = "http://graph.facebook.com/?id=" . $url;
-		$data_fb = json_decode(file_get_contents($url_fb));
-		if ( isset($data_fb->shares) ) {
-			$shares .= $shares + $data_fb->shares;
+		$url_fb = "http://api.facebook.com/restserver.php?method=links.getStats&urls=" . $url;
+		$data_fb = simplexml_load_file($url_fb);
+		if ( isset($data_fb->link_stat->share_count) ) {
+			$shares = $shares + $data_fb->link_stat->share_count;
 		}
 	}
+
 	if ( $twitter ) {
 		$url_tw = "http://urls.api.twitter.com/1/urls/count.json?url=" . $url;
-		$data = json_decode(file_get_contents($url_tw));
-		if ( isset($data_tw->shares) ) {
-			$shares .= $shares + $data_tw->count;
+		$data_tw = json_decode(file_get_contents($url_tw));
+		if ( isset($data_tw->count) ) {
+			$shares = $shares + $data_tw->count;
 		}
 	}
+
 	if ( $gplus ) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, "https://clients6.google.com/rpc");
@@ -38,16 +40,17 @@ function sharesCounter($facebook = true, $twitter = true, $gplus = true, $linked
 
 		if ( isset($json) && isset($json[0]['result']['metadata']['globalCounts']['count']) ) {
 			$result = intval($json[0]['result']['metadata']['globalCounts']['count']);
-			$shares .= $shares + $result;
-		}
-	}
-	if ( $linkedin ) {
-		$url_ln = "http://www.linkedin.com/countserv/count/share?url=" . $url . "&format=json";
-		if ( isset($data_ln->count) ) {
-			$shares .= $shares + $data_ln->count;
+			$shares = $shares + $result;
 		}
 	}
 
-	echo number_format(intval($shares));
+	if ( $linkedin ) {
+		$url_ln = "http://www.linkedin.com/countserv/count/share?url=" . $url . "&format=json";
+		if ( isset($data_ln->count) ) {
+			$shares = $shares + $data_ln->count;
+		}
+	}
+
+	echo intval($shares);
 }
 ?>
