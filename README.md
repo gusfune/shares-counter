@@ -1,4 +1,4 @@
-Social Counter (v.1.0.2)
+Social Counter (v.1.0.3)
 
 This simple PHP function allows the user to display the amount of times
 that an URL have been shared on different social networks. Right now it
