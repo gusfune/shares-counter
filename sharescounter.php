@@ -1,5 +1,5 @@
 <?php
-function sharesCounter($url = '', $facebook = true, $twitter = true, $gplus = true, $linkedin = true) {
+function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = true, $gplus = true, $linkedin = true) {
 	$shares = 0;
 
 	if ( !isset($url) || $url === '' ) {
@@ -51,6 +51,10 @@ function sharesCounter($url = '', $facebook = true, $twitter = true, $gplus = tr
 		}
 	}
 
-	echo intval($shares);
+	if ( $echo ) {
+		echo intval($shares);
+	} else {
+		return intval($shares);
+	}
 }
 ?>
