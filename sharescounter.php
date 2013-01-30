@@ -1,19 +1,28 @@
 <?php
-function sharesCounter($facebook = true, $twitter = true, $gplus = true, $linkedin = true, $url = $_SERVER['SERVER_NAME'] . $_SERVER['PATH_INFO']) {
+function sharesCounter($facebook = true, $twitter = true, $gplus = true, $linkedin = true, $url = '') {
 	$shares = 0;
+
+	if ( !isset($url) || $url === '' ) {
+		if ( isset($_SERVER['https']) ) {
+			$protocol = 'https://';
+		} else {
+			$protocol = 'http://';
+		}
+		$url =  $protocol . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	}
 
 	if ( $facebook ) {
 		$url_fb = "http://graph.facebook.com/?id=" . $url;
 		$data_fb = json_decode(file_get_contents($url_fb));
 		if ( isset($data_fb->shares) ) {
-			$shares .= $shares + $data_fb->shares
+			$shares .= $shares + $data_fb->shares;
 		}
 	}
 	if ( $twitter ) {
 		$url_tw = "http://urls.api.twitter.com/1/urls/count.json?url=" . $url;
 		$data = json_decode(file_get_contents($url_tw));
 		if ( isset($data_tw->shares) ) {
-			$shares .= $shares + $data_tw->count
+			$shares .= $shares + $data_tw->count;
 		}
 	}
 	if ( $gplus ) {
@@ -35,10 +44,10 @@ function sharesCounter($facebook = true, $twitter = true, $gplus = true, $linked
 	if ( $linkedin ) {
 		$url_ln = "http://www.linkedin.com/countserv/count/share?url=" . $url . "&format=json";
 		if ( isset($data_ln->count) ) {
-			$shares .= $shares + $data_ln->count
+			$shares .= $shares + $data_ln->count;
 		}
 	}
 
-	return $shares;
+	echo number_format(intval($shares));
 }
 ?>
