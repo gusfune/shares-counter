@@ -33,14 +33,18 @@ echoes the results. Defaults to true.
 
 For example, if you want to remove linkedin from the list, you can:
 
-	<?php sharesCounter('', true, true, true, false); ?>
+	<?php sharesCounter('', true, true, true, true, false); ?>
 
 
-To use the code in Wordpress for any specific post, you can simply add (within the
-loop):
+To use the code in Wordpress for any specific post, you can simply add (within
+the loop):
 
 	<?php sharesCounter( get_permalink() ); ?>
 
+
+You can also return the result as a variable instead of echoing the number:
+
+	<?php $variable = sharesCounter('', false); ?>
 
 
 Contributing
