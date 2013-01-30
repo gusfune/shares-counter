@@ -14,37 +14,50 @@ Usage
 First you need to add the function into your PHP code, then you just need
 to call the function directly into the code:
 
-	<?php sharesCounter(); ?>
+	<?php 
+		$the_counter = new ShareCounter();
+		$the_counter->echoAllSharesCount();
+	?>
 
-You can pass some parameters on the function if you don't want to get counts
+You can use some methods of the class if you don't want to get counts
 from any specific network or if you want to pass an url that is not the current
 page.
 
-The parameters are (in order of usage):
+The methods are:
 
-- $url (string): defaults to current url.
-- $echo (bool): if false it will just return the sum as a variable, if true it
-echoes the results. Defaults to true.
-- $facebook (bool): defaults to true.
-- $twitter (bool): defaults to true.
-- $gplus (bool): defaults to true.
-- $linkedin (bool): defaults to true.
-
+- setURL($url (string)): Set the URL used with the object, if empty, get automatically the URL of the requested page.
+- getURL() (string): Return the URL used with the object
+- getFacebookSharesCount() (int): Return the number of shares of the URL in Facebook.
+- getTwitterSharesCount() (int): Return the number of shares of the URL in Twitter.
+- getGooglePlusSharesCount() (int): Return the number of shares of the URL in Google Plus.
+- getLinkedinSharesCount() (int): Return the number of shares of the URL in Linkedin.
+- getSharesCount($services) (int): Return the number of shares of the URL in services specified by the array $services.
+- getAllSharesCount(): Return the sum of number of shares of the URL in all services supported by this script
+- echoAllSharesCount(): Just echo the sum of number of shares of the URL in all services supported by this script
 
 For example, if you want to remove linkedin from the list, you can:
 
-	<?php sharesCounter('', true, true, true, true, false); ?>
+	<?php 
+		$count = new SharesCounter();
+		echo $count->getSharesCount(array("facebook", "twitter","google plus"));
+	?>
 
 
 To use the code in Wordpress for any specific post, you can simply add (within
 the loop):
 
-	<?php sharesCounter( get_permalink() ); ?>
+	<?php 
+		$count = new SharesCounter( get_permalink() );
+		$count->echoAllSharesCount();
+	?>
 
 
 You can also return the result as a variable instead of echoing the number:
 
-	<?php $variable = sharesCounter('', false); ?>
+	<?php 
+		$the_counter = new SharesCounter( '' );
+		$count = $the_counter->getAllSharesCount();
+	?>
 
 
 Contributing
