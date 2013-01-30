@@ -22,20 +22,21 @@ page.
 
 The parameters are (in order of usage):
 
+- $url (string): defaults to current url.
 - $facebook (bool): defaults to true.
 - $twitter (bool): defaults to true.
 - $gplus (bool): defaults to true.
 - $linkedin (bool): defaults to true.
-- $url (string): defaults to current url.
+
 
 For example, if you want to remove linkedin from the list, you can:
 
-	<?php sharesCounter(true, true, true, false); ?>
+	<?php sharesCounter('', true, true, true, false); ?>
 
 
 To use the code in Wordpress for any specific post, you can simply add (within the loop):
 
-	<?php sharesCounter(true, true, true, true, get_permalink() ); ?>
+	<?php sharesCounter( get_permalink() ); ?>
 
 
 

@@ -1,5 +1,5 @@
 <?php
-function sharesCounter($facebook = true, $twitter = true, $gplus = true, $linkedin = true, $url = '') {
+function sharesCounter($url = '', $facebook = true, $twitter = true, $gplus = true, $linkedin = true) {
 	$shares = 0;
 
 	if ( !isset($url) || $url === '' ) {
