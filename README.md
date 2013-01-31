@@ -46,6 +46,8 @@ You can also return the result as a variable instead of echoing the number:
 
 	<?php $variable = sharesCounter('', false); ?>
 
+For OOP version of this code, please refer to the branch linked below:
+https://github.com/gusfune/shares-counter/tree/oop
 
 Contributing
 ===========
