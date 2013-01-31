@@ -24,7 +24,7 @@ function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = tru
 		$url_tw = "http://urls.api.twitter.com/1/urls/count.json?url=" . $url; // Set the URL to API
 		$data_tw = json_decode(file_get_contents($url_tw)); // Get the URL and decode the JSON
 		if ( isset($data_tw->count) ) { // The count of shares is set?
-			$shares = $shares + $data_tw->count; // If yes, increment the counter 
+			$shares = $shares + $data_tw->count; // If yes, increment the counter
 		}
 	}
 
