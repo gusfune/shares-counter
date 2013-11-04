@@ -49,6 +49,10 @@ You can also return the result as a variable instead of echoing the number:
 For OOP version of this code, please refer to the branch linked below:
 https://github.com/gusfune/shares-counter/tree/oop
 
+If you are using Wordpress, you should use the WPShare-Counter that was created
+based on this code.:
+https://github.com/phalkmin/WPShare-Counter
+
 Contributing
 ===========
 
@@ -59,8 +63,3 @@ Before creating a pull request, squash your commits into a single commit.
 
 Add the comments where needed, and provide ample explanation in the
 commit message.
-
-
-Report Issues/Bugs
-===============
-[Send me an e-mail](mailto:gusfune@epicawesome.co)
