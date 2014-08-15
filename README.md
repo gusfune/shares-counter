@@ -29,11 +29,12 @@ echoes the results. Defaults to true.
 - $twitter (bool): defaults to true.
 - $gplus (bool): defaults to true.
 - $linkedin (bool): defaults to true.
+- $vk (bool): defaults to true.
 
 
 For example, if you want to remove linkedin from the list, you can:
 
-	<?php sharesCounter('', true, true, true, true, false); ?>
+	<?php sharesCounter('', true, true, true, true, false, true); ?>
 
 
 To use the code in Wordpress for any specific post, you can simply add (within
