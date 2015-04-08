@@ -1,5 +1,5 @@
 <?php
-function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = true, $gplus = true, $linkedin = true) {
+function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = true, $gplus = true, $linkedin = true, $vk = true) {
 	/* Returns (or just echo) the number of shares of a specific URL in various social networks */
 	$shares = 0; // Start with zero shares
 
@@ -50,6 +50,15 @@ function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = tru
 		$data_ln = json_decode(file_get_contents($url_ln)); // Call the API and get the JSON
 		if ( isset($data_ln->count) ) { // If the counter as encountered
 			$shares += $data_ln->count; // Increment the global counter
+		}
+	}
+
+	if ( $vk ) { // VK is active?
+		$url_vk = 'http://vk.com/share.php?act=count&index=1&url=' . $url;
+		$data_vk = file_get_contents($url_vk);
+		$data_vk = str_replace('VK.Share.count(1,', '', $data_vk);
+		if (intval($data_vk)) {
+			$shares += intval($data_vk);
 		}
 	}
 
