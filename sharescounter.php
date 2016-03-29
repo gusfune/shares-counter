@@ -1,5 +1,5 @@
 <?php
-function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = true, $gplus = true, $linkedin = true, $vk = true) {
+function sharesCounter($url = '', $echo = true, $facebook = true, $gplus = true, $linkedin = true, $vk = true) {
 	/* Returns (or just echo) the number of shares of a specific URL in various social networks */
 	$shares = 0; // Start with zero shares
 
@@ -17,14 +17,6 @@ function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = tru
 		$data_fb = simplexml_load_file($url_fb); // Loads the XML file
 		if ( isset($data_fb->link_stat->share_count) ) { // The counter has encountered?
 			$shares += $data_fb->link_stat->share_count; // If yes, just increment the global counter
-		}
-	}
-
-	if ( $twitter ) { // Twitter is active?
-		$url_tw = "http://urls.api.twitter.com/1/urls/count.json?url=" . $url; // Set the URL to API
-		$data_tw = json_decode(file_get_contents($url_tw)); // Get the URL and decode the JSON
-		if ( isset($data_tw->count) ) { // The count of shares is set?
-			$shares = $shares + $data_tw->count; // If yes, increment the counter
 		}
 	}
 
