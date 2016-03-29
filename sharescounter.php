@@ -13,7 +13,7 @@ function sharesCounter($url = '', $echo = true, $facebook = true, $twitter = tru
 	}
 
 	if ( $facebook ) { // Facebook is active?
-		$url_fb = "http://api.facebook.com/restserver.php?method=links.getStats&urls=" . $url; // Set the URL to API
+		$url_fb = "https://api.facebook.com/restserver.php?method=links.getStats&urls=" . $url; // Set the URL to API
 		$data_fb = simplexml_load_file($url_fb); // Loads the XML file
 		if ( isset($data_fb->link_stat->share_count) ) { // The counter has encountered?
 			$shares += $data_fb->link_stat->share_count; // If yes, just increment the global counter
