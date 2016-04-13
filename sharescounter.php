@@ -1,11 +1,11 @@
 <?php
 class ShareCounter{
-	/* 
-	 * Just a class to manipulate share count easily 
+	/*
+	 * Just a class to manipulate share count easily
 	 * Example of use:
 	 * 	$count = new ShareCounter("http://bitw.in");
 	 * 	echo $count->getAllSharesCount();
-	 * 
+	 *
 	 * Easy, not?
 	 */
 	private $url; // Saves the URL in a private attribute
@@ -28,7 +28,7 @@ class ShareCounter{
 	}
 	private function request($url, $method="GET", $data="", $headers=array()){
 		/* Just a function to make requests easily */
-		/* We can apply a cache here, it's really simple, now :P */ 
+		/* We can apply a cache here, it's really simple, now :P */
 		$curl = curl_init(); // Enable CURL, as the request need to be 'POST'
 		curl_setopt($curl, CURLOPT_URL, $url); //Set the URL API
 		curl_setopt($curl, CURLOPT_POST, $method=="POST"); // Set the request method
@@ -45,32 +45,20 @@ class ShareCounter{
 			$this->url = $this->getCurrentPageURL(); // If yes, we just get the current page URL
 		}
 		else{
-			$this->url = $url; // If not, we set the new URL 
+			$this->url = $url; // If not, we set the new URL
 		}
 	}
 	public function getURL(){
 		/* Just return the URL used with this counter */
-		return $this->url; 
+		return $this->url;
 	}
 	public function getFacebookSharesCount(){
 		/* Just return the number of shares of the link in  Facebook */
-		$url_fb = "http://api.facebook.com/restserver.php?method=links.getStats&urls=" . $this->url; // Set the URL to API
+		$url_fb = "https://api.facebook.com/restserver.php?method=links.getStats&urls=" . $this->url; // Set the URL to API
 		$content_fb = $this->request($url_fb); // Just request the API, using CURL..
 		$data_fb = simplexml_load_string($content_fb); // Loads the XML file
 		if ( isset($data_fb->link_stat->share_count) ) { // The counter has encountered?
 			return $data_fb->link_stat->share_count; // If yes, just increment the global counter
-		}
-		else{
-			return 0; // If not, we just return zero.
-		}
-	}
-	public function getTwitterSharesCount(){
-		/* Just return the number of shares of the link in Twitter */
-		$url_tw = "http://urls.api.twitter.com/1/urls/count.json?url=" . $this->url; // Set the URL to API
-		$content_tw = $this->request($url_tw); // Just request the API, using CURL..
-		$data_tw = json_decode($content_tw); // Get the URL and decode the JSON
-		if ( isset($data_tw->count) ) { // The count of shares is set?
-			return $data_tw->count; // If yes, increment the counter 
 		}
 		else{
 			return 0; // If not, we just return zero.
@@ -122,7 +110,7 @@ class ShareCounter{
 	}
 	public function getAllSharesCount(){
 		/* Returns the SUM of number of shares in ALL services supported by this script */
-		return $this->getSharesCount(array("facebook","twitter","linkedin","google plus"));
+		return $this->getSharesCount(array("facebook","linkedin","google plus"));
 	}
 	public function echoAllSharesCount(){
 		/* Echo the sum of shares count in ALL services */
