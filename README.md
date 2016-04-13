@@ -7,6 +7,14 @@ supports Facebook, Twitter, Google Plus and LinkedIn.
 This repository contains the open source PHP and is licensed under the
 Apache Licence, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html).
 
+The same source if offered in two versions:
+- Functional Programming (sharescounter.php)
+- OOP Programming (class_sharecounter.php)
+
+If you are using Wordpress, you should use the WPShare-Counter that was created
+based on this code.:
+https://github.com/phalkmin/WPShare-Counter
+
 
 Usage (Functional Version)
 --------------------------
@@ -46,13 +54,6 @@ the loop):
 You can also return the result as a variable instead of echoing the number:
 
 	<?php $variable = sharesCounter('', false); ?>
-
-For OOP version of this code, please refer to the branch linked below:
-https://github.com/gusfune/shares-counter/tree/oop
-
-If you are using Wordpress, you should use the WPShare-Counter that was created
-based on this code.:
-https://github.com/phalkmin/WPShare-Counter
 
 Usage (OOP Version)
 -------------------
